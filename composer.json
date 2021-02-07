@@ -23,7 +23,7 @@
     },
     "autoload": {
       "psr-4": {
-          "Sura\\Menu\\": "src/"
+          "Sura\\Url\\": "src/"
       }
     }
 }
