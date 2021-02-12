@@ -2,6 +2,7 @@
 declare(strict_types=1);
 namespace Sura\Url;
 
+use JetBrains\PhpStorm\Pure;
 use Sura\Macroable\Macroable;
 use Sura\Url\Exceptions\InvalidArgument;
 
@@ -45,7 +46,7 @@ class Url
     /**
      * Url constructor.
      */
-    public function __construct()
+    #[Pure] public function __construct()
     {
         $this->query = new QueryParameterBag();
     }
@@ -53,7 +54,7 @@ class Url
     /**
      * @return static
      */
-    public static function create()
+    #[Pure] public static function create()
     {
         return new static();
     }

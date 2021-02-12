@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 namespace Sura\Url;
 
 use Sura\Url\Helpers\Arr;
@@ -11,7 +12,7 @@ use Sura\Url\Helpers\Arr;
 class QueryParameterBag
 {
     /** @var array */
-    protected $parameters;
+    protected array $parameters;
 
     /**
      * QueryParameterBag constructor.
