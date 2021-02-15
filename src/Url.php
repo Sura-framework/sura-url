@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 namespace Sura\Url;
 
 use JetBrains\PhpStorm\Pure;
@@ -96,11 +97,11 @@ class Url
         $authority = $this->host;
 
         if ($this->getUserInfo()) {
-            $authority = $this->getUserInfo().'@'.$authority;
+            $authority = $this->getUserInfo() . '@' . $authority;
         }
 
         if ($this->port !== null) {
-            $authority .= ':'.$this->port;
+            $authority .= ':' . $this->port;
         }
 
         return $authority;
@@ -114,7 +115,7 @@ class Url
         $userInfo = $this->user;
 
         if ($this->password !== null) {
-            $userInfo .= ':'.$this->password;
+            $userInfo .= ':' . $this->password;
         }
 
         return $userInfo;
@@ -161,7 +162,7 @@ class Url
 
         array_pop($segments);
 
-        return '/'.implode('/', $segments);
+        return '/' . implode('/', $segments);
     }
 
     /**
@@ -169,7 +170,7 @@ class Url
      */
     public function getQuery(): string
     {
-        return (string) $this->query;
+        return (string)$this->query;
     }
 
     /**
@@ -304,7 +305,7 @@ class Url
     {
         $scheme = strtolower($scheme);
 
-        if (! in_array($scheme, static::VALID_SCHEMES)) {
+        if (!in_array($scheme, static::VALID_SCHEMES)) {
             throw InvalidArgument::invalidScheme($scheme);
         }
 
@@ -361,7 +362,7 @@ class Url
         $url = clone $this;
 
         if (strpos($path, '/') !== 0) {
-            $path = '/'.$path;
+            $path = '/' . $path;
         }
 
         $url->path = $path;
@@ -377,11 +378,11 @@ class Url
     {
         $dirname = trim($dirname, '/');
 
-        if (! $this->getBasename()) {
+        if (!$this->getBasename()) {
             return $this->withPath($dirname);
         }
 
-        return $this->withPath($dirname.'/'.$this->getBasename());
+        return $this->withPath($dirname . '/' . $this->getBasename());
     }
 
     /**
@@ -393,10 +394,10 @@ class Url
         $basename = trim($basename, '/');
 
         if ($this->getDirname() === '/') {
-            return $this->withPath('/'.$basename);
+            return $this->withPath('/' . $basename);
         }
 
-        return $this->withPath($this->getDirname().'/'.$basename);
+        return $this->withPath($this->getDirname() . '/' . $basename);
     }
 
     /**
@@ -431,7 +432,7 @@ class Url
      */
     public function matches(self $url): bool
     {
-        return (string) $this === (string) $url;
+        return (string)$this === (string)$url;
     }
 
     /**
@@ -442,11 +443,11 @@ class Url
         $url = '';
 
         if ($this->getScheme() !== '' && $this->getScheme() != 'mailto') {
-            $url .= $this->getScheme().'://';
+            $url .= $this->getScheme() . '://';
         }
 
         if ($this->getScheme() === 'mailto' && $this->getPath() !== '') {
-            $url .= $this->getScheme().':';
+            $url .= $this->getScheme() . ':';
         }
 
         if ($this->getScheme() === '' && $this->getAuthority() !== '') {
@@ -462,11 +463,11 @@ class Url
         }
 
         if ($this->getQuery() !== '') {
-            $url .= '?'.$this->getQuery();
+            $url .= '?' . $this->getQuery();
         }
 
         if ($this->getFragment() !== '') {
-            $url .= '#'.$this->getFragment();
+            $url .= '#' . $this->getFragment();
         }
 
         return $url;
