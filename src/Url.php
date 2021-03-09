@@ -55,7 +55,7 @@ class Url
     /**
      * @return static
      */
-    #[Pure] public static function create()
+    #[Pure] public static function create(): static
     {
         return new static();
     }
@@ -64,7 +64,7 @@ class Url
      * @param string $url
      * @return static
      */
-    public static function fromString(string $url)
+    public static function fromString(string $url): static
     {
         $parts = array_merge(parse_url($url));
 
@@ -92,7 +92,7 @@ class Url
     /**
      * @return string
      */
-    public function getAuthority()
+    #[Pure] public function getAuthority()
     {
         $authority = $this->host;
 
@@ -187,7 +187,7 @@ class Url
      * @param string $key
      * @return bool
      */
-    public function hasQueryParameter(string $key): bool
+    #[Pure] public function hasQueryParameter(string $key): bool
     {
         return $this->query->has($key);
     }
@@ -195,7 +195,7 @@ class Url
     /**
      * @return array
      */
-    public function getAllQueryParameters(): array
+    #[Pure] public function getAllQueryParameters(): array
     {
         return $this->query->all();
     }
@@ -230,7 +230,7 @@ class Url
     /**
      * @return string
      */
-    public function getFragment()
+    public function getFragment(): string
     {
         return $this->fragment;
     }
@@ -238,7 +238,7 @@ class Url
     /**
      * @return array
      */
-    public function getSegments(): array
+    #[Pure] public function getSegments(): array
     {
         return explode('/', trim($this->path, '/'));
     }
@@ -246,9 +246,9 @@ class Url
     /**
      * @param int $index
      * @param null $default
-     * @return mixed|null
+     * @return mixed
      */
-    public function getSegment(int $index, $default = null)
+    public function getSegment(int $index, $default = null): mixed
     {
         $segments = $this->getSegments();
 
@@ -265,9 +265,9 @@ class Url
     }
 
     /**
-     * @return mixed|null
+     * @return mixed
      */
-    public function getFirstSegment()
+    public function getFirstSegment(): mixed
     {
         $segments = $this->getSegments();
 
@@ -275,20 +275,20 @@ class Url
     }
 
     /**
-     * @return mixed|null
+     * @return mixed
      */
-    public function getLastSegment()
+    public function getLastSegment(): mixed
     {
         $segments = $this->getSegments();
 
-        return end($segments) ?? null;
+        return end($segments);
     }
 
     /**
      * @param $scheme
      * @return Url
      */
-    public function withScheme($scheme)
+    public function withScheme($scheme): Url
     {
         $url = clone $this;
 
@@ -317,7 +317,7 @@ class Url
      * @param null $password
      * @return Url
      */
-    public function withUserInfo($user, $password = null)
+    public function withUserInfo($user, $password = null): Url
     {
         $url = clone $this;
 
@@ -331,7 +331,7 @@ class Url
      * @param $host
      * @return Url
      */
-    public function withHost($host)
+    public function withHost($host): Url
     {
         $url = clone $this;
 
@@ -344,7 +344,7 @@ class Url
      * @param $port
      * @return Url
      */
-    public function withPort($port)
+    public function withPort($port): Url
     {
         $url = clone $this;
 
@@ -357,11 +357,11 @@ class Url
      * @param $path
      * @return Url
      */
-    public function withPath($path)
+    #[Pure] public function withPath($path): Url
     {
         $url = clone $this;
 
-        if (strpos($path, '/') !== 0) {
+        if (!str_starts_with($path, '/')) {
             $path = '/' . $path;
         }
 
@@ -374,7 +374,7 @@ class Url
      * @param string $dirname
      * @return Url
      */
-    public function withDirname(string $dirname)
+    public function withDirname(string $dirname): Url
     {
         $dirname = trim($dirname, '/');
 
@@ -389,7 +389,7 @@ class Url
      * @param string $basename
      * @return Url
      */
-    public function withBasename(string $basename)
+    public function withBasename(string $basename): Url
     {
         $basename = trim($basename, '/');
 
@@ -404,7 +404,7 @@ class Url
      * @param $query
      * @return Url
      */
-    public function withQuery($query)
+    public function withQuery($query): Url
     {
         $url = clone $this;
 
@@ -417,7 +417,7 @@ class Url
      * @param $fragment
      * @return Url
      */
-    public function withFragment($fragment)
+    public function withFragment($fragment): Url
     {
         $url = clone $this;
 
@@ -438,7 +438,7 @@ class Url
     /**
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         $url = '';
 

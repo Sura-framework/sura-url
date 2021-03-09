@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Sura\Url;
 
+use JetBrains\PhpStorm\Pure;
 use Sura\Url\Helpers\Arr;
 
 /**
@@ -33,7 +34,7 @@ class QueryParameterBag
             return new static();
         }
 
-        return new static(Arr::mapToAssoc(explode('&', $query), function (string $keyValue) {
+        return new static(Arr::mapToAssoc(explode('&', $query), static function (string $keyValue) {
             $parts = explode('=', $keyValue, 2);
 
             return count($parts) === 2
@@ -45,9 +46,9 @@ class QueryParameterBag
     /**
      * @param string $key
      * @param null $default
-     * @return mixed|null
+     * @return mixed
      */
-    public function get(string $key, $default = null)
+    public function get(string $key, $default = null): mixed
     {
         return $this->parameters[$key] ?? $default;
     }
@@ -56,7 +57,7 @@ class QueryParameterBag
      * @param string $key
      * @return bool
      */
-    public function has(string $key): bool
+    #[Pure] public function has(string $key): bool
     {
         return array_key_exists($key, $this->parameters);
     }
@@ -66,7 +67,7 @@ class QueryParameterBag
      * @param string $value
      * @return $this
      */
-    public function set(string $key, string $value)
+    public function set(string $key, string $value): static
     {
         $this->parameters[$key] = $value;
 
@@ -77,7 +78,7 @@ class QueryParameterBag
      * @param string $key
      * @return $this
      */
-    public function unset(string $key)
+    public function unset(string $key): static
     {
         unset($this->parameters[$key]);
 
@@ -95,9 +96,9 @@ class QueryParameterBag
     /**
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
-        $keyValuePairs = Arr::map($this->parameters, function ($value, $key) {
+        $keyValuePairs = Arr::map($this->parameters, static function ($value, $key) {
             return "{$key}=" . rawurlencode($value);
         });
 
