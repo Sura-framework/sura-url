@@ -92,7 +92,7 @@ class Url
     /**
      * @return string
      */
-    #[Pure] public function getAuthority()
+    #[Pure] public function getAuthority(): string
     {
         $authority = $this->host;
 
@@ -267,7 +267,7 @@ class Url
     /**
      * @return mixed
      */
-    public function getFirstSegment(): mixed
+    #[Pure] public function getFirstSegment(): mixed
     {
         $segments = $this->getSegments();
 
@@ -438,7 +438,7 @@ class Url
     /**
      * @return string
      */
-    public function __toString(): string
+    #[Pure] public function __toString(): string
     {
         $url = '';
 

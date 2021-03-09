@@ -30,7 +30,7 @@ class Arr
      */
     public static function mapToAssoc(array $items, callable $callback): mixed
     {
-        return array_reduce($items, function (array $assoc, $item) use ($callback) {
+        return array_reduce($items, static function (array $assoc, $item) use ($callback) {
             [$key, $value] = $callback($item);
             $assoc[$key] = $value;
 
